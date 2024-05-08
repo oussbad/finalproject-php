@@ -1,0 +1,18 @@
+{# templates/rdv/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit RDV{% endblock %}
+
+{% block body %}
+    <h1>Edit RDV</h1>
+
+    <form method="post" action="{{ path('rdv_update', {'id': rdv.id}) }}">
+        <div class="mb-3">
+            <label for="date_rdv" class="form-label">Date</label>
+            <input type="date" class="form-control" id="date_rdv" name="date_rdv" value="{{ rdv.dateRdv|date('Y-m-d') }}">
+        </div>
+        <!-- Add other form fields as needed -->
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+{% endblock %}

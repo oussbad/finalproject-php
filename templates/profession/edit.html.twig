@@ -1,0 +1,26 @@
+{# templates/profession/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Profession{% endblock %}
+
+{% block body %}
+    <h1>Edit Profession</h1>
+
+    <form method="post" action="{{ path('profession_update', {'id': profession.id}) }}">
+        <div class="mb-3">
+            <label for="npe" class="form-label">NPE</label>
+            <input type="text" class="form-control" id="npe" name="npe" value="{{ profession.NPE }}">
+        </div>
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" value="{{ profession.nom }}">
+        </div>
+        <div class="mb-3">
+            <label for="prenom" class="form-label">Prenom</label>
+            <input type="text" class="form-control" id="prenom" name="prenom" value="{{ profession.prenom }}">
+        </div>
+        <!-- Add other form fields as needed -->
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+{% endblock %}

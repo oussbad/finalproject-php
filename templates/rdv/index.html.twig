@@ -1,0 +1,35 @@
+{# templates/rdv/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}RDV List{% endblock %}
+
+{% block body %}
+    <h1>RDV List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Date</th>
+                <!-- Add other columns as needed -->
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rdv in rdvs %}
+                <tr>
+                    <td>{{ rdv.id }}</td>
+                    <td>{{ rdv.dateRdv|date('Y-m-d') }}</td>
+                    <!-- Display other properties as needed -->
+                    <td>
+                        <a href="{{ path('rdv_edit', {'id': rdv.id}) }}">Edit</a>
+                        <a href="{{ path('rdv_delete', {'id': rdv.id}) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('rdv_create') }}" class="btn btn-primary">Create RDV</a>
+{% endblock %}

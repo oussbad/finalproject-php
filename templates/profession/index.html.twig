@@ -1,0 +1,39 @@
+{# templates/profession/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Profession List{% endblock %}
+
+{% block body %}
+    <h1>Profession List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NPE</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <!-- Add other columns as needed -->
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profession in professions %}
+                <tr>
+                    <td>{{ profession.id }}</td>
+                    <td>{{ profession.NPE }}</td>
+                    <td>{{ profession.nom }}</td>
+                    <td>{{ profession.prenom }}</td>
+                    <!-- Display other properties as needed -->
+                    <td>
+                        <a href="{{ path('profession_edit', {'id': profession.id}) }}">Edit</a>
+                        <a href="{{ path('profession_delete', {'id': profession.id}) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('profession_create') }}" class="btn btn-primary">Create Profession</a>
+{% endblock %}

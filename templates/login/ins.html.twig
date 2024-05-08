@@ -1,0 +1,66 @@
+{# registration_form.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="{{ asset('favicon.ico') }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="{{ asset('logo192.png') }}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- manifest.json provides metadata used when your web app is installed on a user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/ -->
+  <link rel="manifest" href="{{ asset('manifest.json') }}" />
+  <!-- Notice the use of %PUBLIC_URL% in the tags above. It will be replaced with the URL of the `public` folder during the build. Only files inside the `public` folder can be referenced from the HTML. Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will work correctly both with client-side routing and a non-root public URL. Learn how to configure a non-root public URL by running `npm run build`. -->
+  <title>React App</title>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="flex justify-center items-center h-screen bg-black">
+    <div class="max-w-md w-full bg-white shadow-md rounded-lg px-8 py-6">
+      <h2 class="text-2xl font-semibold mb-6">Registration</h2>
+      <form action="{{ path('register') }}" method="post">
+        <input
+          type="text"
+          name="fullName"
+          placeholder="Full Name"
+          value="{{ fullName ?? '' }}"
+          required
+          class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value="{{ email ?? '' }}"
+          required
+          class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value="{{ password ?? '' }}"
+          required
+          class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
+        />
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          value="{{ confirmPassword ?? '' }}"
+          required
+          class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
+        />
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+</body>
+</html>
