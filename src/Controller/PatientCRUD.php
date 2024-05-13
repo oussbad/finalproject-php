@@ -25,7 +25,7 @@ class PatientCRUD extends AbstractController
     {
         $patients = $this->entityManager->getRepository(Patient::class)->findAll();
 
-        return $this->render('patient/index.html.twig', [
+        return $this->render('admin/admin.html.twig', [
             'patients' => $patients,
         ]);
     }

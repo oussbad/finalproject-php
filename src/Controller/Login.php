@@ -6,6 +6,8 @@ namespace App\Controller;
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Patient;
+use App\Entity\Profession;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,11 +55,7 @@ class Login extends AbstractController
                         
                     ];  
                 }elseif (in_array('ROLE_USER', $roles)) {
-                    $responseData = [
-
-                        'sucess' => 'connect as user ',
-                        
-                    ];  
+                    return $this->redirectToRoute('app_login');
                 } else {
                     // Handle other roles or scenarios
                 }
@@ -90,6 +88,47 @@ class Login extends AbstractController
     
 
         return $this->json($responseData);
+}
+#[Route('/register', name: 'app_register', methods: ['GET'])]
+public function createRegisterForm(): Response
+{
+    return $this->render('login/ins.html.twig');
+}
+
+#[Route('/register', name: 'app_register_submit', methods: ['POST'])]
+public function register(Request $request): Response
+{
+    $user = new User();
+    
+    $email = $request->request->get('email');
+    $password = $request->request->get('password');
+    $userType = $request->request->get('userType');
+    $INPE = $request->request->get('INPE');
+    $CIN = $request->request->get('CIN');
+
+    $user->setEmail($email);
+    $user->setPassword($password); // Use password encoder
+
+    if ($userType === 'patient') {
+        $user->setRoles(['ROLE_USER']);
+        $patient = new Patient();
+        $patient->setNom($request->request->get('nom'));
+        $patient->setPrenom($request->request->get('prenom'));
+        $patient->setCin($CIN);
+        $user->setPatient($patient);
+    } elseif ($userType === 'professional') {
+        $user->setRoles(['ROLE_PRO']);
+        $profession = new Profession();
+        $profession->setNPE($INPE);
+        $profession->setNom($request->request->get('nom'));
+        $profession->setPrenom($request->request->get('prenom'));
+        $user->setProfession($profession);
+    }
+
+    $this->entityManager->persist($user);
+    $this->entityManager->flush();
+
+    return $this->redirectToRoute('app_login');
 }
 
 }
