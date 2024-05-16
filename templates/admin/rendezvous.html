@@ -1,0 +1,16 @@
+<table id="table-rendezvous" class="table" style="display: none;">
+    {% for rdv in rdvs %}
+    <tr>
+      <td>{{ rdv.id }}</td>
+      <td>{{ rdv.dateRdv|date('Y-m-d') }}</td>
+      <td>{{ rdv.patient.nom }}</td>
+      <td>{{ rdv.patient.prenom }}</td>
+      <td>{{ rdv.patient.cin }}</td>
+      <td>
+        <a href="{{ path('rdv_edit', {'id': rdv.id}) }}" class="bg-blue-500 text-white px-3 py-1 rounded-md">Éditer</a>
+        <a href="{{ path('rdv_delete', {'id': rdv.id}) }}" class="bg-red-500 text-white px-3 py-1 rounded-md">Supprimer</a>
+      </td>
+    </tr>
+    {% endfor %}
+  
+</table>

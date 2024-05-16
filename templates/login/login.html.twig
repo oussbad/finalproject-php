@@ -20,6 +20,9 @@
   <div class="max-w-md w-full bg-white shadow-md rounded-lg px-8 py-6">
     <h2 class="text-2xl font-semibold mb-6 text-center">Login</h2>
     <img src="{{ asset('favicon.ico') }}" alt="Logo" class="w-24 mx-auto mb-6" />
+    {% if erreur %}
+      <div class="text-red-500 text-center mb-4">{{ erreur }}</div>
+    {% endif %}
     <form action="{{ path('app_loginn') }}" method="post">
       <input
         type="email"

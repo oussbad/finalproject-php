@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - JHC Clinic</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid #e2e8f0;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .table th {
+      background-color: #f0f4f8;
+      font-weight: bold;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .active-button,
+    .button-container button:hover {
+      background-color: #2563eb; /* Change to a darker shade */
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="flex flex-col pt-9 pb-16 mx-auto w-full text-sm bg-white text-slate-500 md:pb-20 lg:pb-9">
+    <div class="flex flex-col px-7 max-md:px-5">
+      <div class="flex gap-3 self-start ml-3.5 text-lg font-bold tracking-widest text-blue-500 max-md:ml-2.5">
+        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/787820780bd67127fec879f017ac18ce28b3b8d484faa6ef2556b2089ee9218f?" class="shrink-0 w-9 aspect-[0.97]" alt="Logo de la clinique" />
+        <div class="my-auto">JHC Clinic</div>
+      </div>
+      <div class="button-container mt-7 md:mt-10 lg:mt-14">
+        <button onclick="showContent('patients'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Patients</button>
+        <button onclick="showContent('rdv'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Rendez-Vous</button>
+        <button onclick="showContent('appointments'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Appointments</button>
+        <button onclick="showContent('prescription'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Prescription médicale</button>
+        <button onclick="showContent('rapports'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Rapports médicaux</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto mt-8">
+    <!-- Content Divs for Patients, Rendez-Vous, Appointments, Prescription, and Rapports -->
+    <div id="patients" style="display: none;">
+      <!-- Content for Patients -->
+      <!-- You can generate content dynamically here using JavaScript -->
+      <p>Content for Patients goes here...</p>
+    </div>
+
+    <div id="rdv" style="display: none;">
+      <!-- Content for Rendez-Vous -->
+      <!-- You can generate content dynamically here using JavaScript -->
+      <p>Content for Rendez-Vous goes here...</p>
+    </div>
+
+    <div id="content-appointments" style="display: none;">
+      <!-- Content for Appointments -->
+      <!-- You can generate content dynamically here using JavaScript -->
+      <p>Content for Appointments goes here...</p>
+    </div>
+
+    <div id="content-prescription" style="display: none;">
+      <!-- Content for Prescription -->
+      <!-- You can generate content dynamically here using JavaScript -->
+      <p>Content for Prescription médicale goes here...</p>
+    </div>
+
+    <div id="content-rapports" style="display: none;">
+      <!-- Content for Rapports -->
+      <!-- You can generate content dynamically here using JavaScript -->
+      <p>Content for Rapports médicaux goes here...</p>
+    </div>
+  </div>
+
+  <script>
+    function showContent(contentId) {
+      // Hide all content divs
+      document.querySelectorAll('.container div').forEach(div => {
+        div.style.display = 'none';
+      });
+  
+      // Show the selected content div
+      document.getElementById(contentId).style.display = 'block';
+  
+      // If contentId is 'patients' or 'rdv', fetch data from the controller routes
+      if (contentId === 'patients') {
+        fetch('/patients')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('patients').innerHTML = html;
+          })
+          .catch(error => console.error('Error fetching patients:', error));
+      } else if (contentId === 'rdv') {
+        fetch('/rdvs')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('rdv').innerHTML = html;
+          })
+          .catch(error => console.error('Error fetching RDVs:', error));
+      }
+    }
+  
+    function setActiveButton(button) {
+      // Remove active class from all buttons
+      document.querySelectorAll('.button-container button').forEach(btn => {
+        btn.classList.remove('active-button');
+      });
+      // Add active class to the clicked button
+      button.classList.add('active-button');
+    }
+  </script>
+  
+  
+
+</body>
+</html>

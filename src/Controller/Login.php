@@ -25,7 +25,9 @@ class Login extends AbstractController
     #[Route('/login', name: 'app_login', methods: ['GET'])]
     public function create(): Response
     {
-        return $this->render('login/login.html.twig');
+        return $this->render('login/login.html.twig',[
+            'erreur' => '',
+        ]);
     }
 
     #[Route('/loginn', name: 'app_loginn', methods: ['POST'])]
@@ -49,11 +51,7 @@ class Login extends AbstractController
                 // For example, setting up a session, generating a token, etc.
                 // Do something here after successful authentication
                 if  (in_array('ROLE_PRO', $roles)) {
-                    $responseData = [
-
-                        'sucess' => 'connect as profession ',
-                        
-                    ];  
+                    return $this->redirectToRoute('admin');
                 }elseif (in_array('ROLE_USER', $roles)) {
                     return $this->redirectToRoute('app_login');
                 } else {
@@ -63,19 +61,17 @@ class Login extends AbstractController
             } else {
                 // Password doesn't match
                 // Handle incorrect password scenario
-                $responseData = [
-
-                    'erreur' => ' Password doesn t match',
-                    
-                ];  
+                return $this->render('login/login.html.twig',[
+                    'erreur' => 'Password doesn t match',
+                ]);
+                
             }
         } else {
             // User not found with the provided email
-            $responseData = [
-
+            return $this->render('login/login.html.twig',[
                 'erreur' => 'User not found with the provided email',
-                
-            ];   // Handle user not found scenario
+            ]);
+              // Handle user not found scenario
         }
 
         // Redirect the user to '/'
@@ -87,7 +83,7 @@ class Login extends AbstractController
     // Construct a JSON response with the email and password
     
 
-        return $this->json($responseData);
+        
 }
 #[Route('/register', name: 'app_register', methods: ['GET'])]
 public function createRegisterForm(): Response

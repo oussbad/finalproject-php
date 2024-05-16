@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\RDV;
+use App\Entity\Patient;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
