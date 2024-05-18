@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - JHC Clinic</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
     .table {
       border-collapse: collapse;
@@ -39,7 +40,7 @@
     <div class="flex flex-col px-7 max-md:px-5">
       <div class="flex gap-3 self-start ml-3.5 text-lg font-bold tracking-widest text-blue-500 max-md:ml-2.5">
         <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/787820780bd67127fec879f017ac18ce28b3b8d484faa6ef2556b2089ee9218f?" class="shrink-0 w-9 aspect-[0.97]" alt="Logo de la clinique" />
-        <div class="my-auto">JHC Clinic</div>
+        <div class="my-auto">Clinic </div>
       </div>
       <div class="button-container mt-7 md:mt-10 lg:mt-14">
         <button onclick="showContent('patients'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Patients</button>
@@ -47,12 +48,20 @@
         <button onclick="showContent('appointments'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Appointments</button>
         <button onclick="showContent('prescription'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Prescription médicale</button>
         <button onclick="showContent('rapports'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Rapports médicaux</button>
+        <button onclick="logout();" class="whitespace-nowrap bg-red-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-red-600">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
       </div>
     </div>
   </div>
 
   <div class="container mx-auto mt-8">
     <!-- Content Divs for Patients, Rendez-Vous, Appointments, Prescription, and Rapports -->
+    <div id="welcom" style="display: none;">
+      <!-- Content welcom -->
+      <!-- You can generate content dynamically here using JavaScript -->
+      
+    </div>
     <div id="patients" style="display: none;">
       <!-- Content for Patients -->
       <!-- You can generate content dynamically here using JavaScript -->
@@ -65,7 +74,7 @@
       <p>Content for Rendez-Vous goes here...</p>
     </div>
 
-    <div id="content-appointments" style="display: none;">
+    <div id="traitements" style="display: none;">
       <!-- Content for Appointments -->
       <!-- You can generate content dynamically here using JavaScript -->
       <p>Content for Appointments goes here...</p>
@@ -90,10 +99,10 @@
       document.querySelectorAll('.container div').forEach(div => {
         div.style.display = 'none';
       });
-  
+
       // Show the selected content div
       document.getElementById(contentId).style.display = 'block';
-  
+
       // If contentId is 'patients' or 'rdv', fetch data from the controller routes
       if (contentId === 'patients') {
         fetch('/patients')
@@ -109,9 +118,16 @@
             document.getElementById('rdv').innerHTML = html;
           })
           .catch(error => console.error('Error fetching RDVs:', error));
+      } else if (contentId === 'traitements') {
+        fetch('/traitements')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('rdv').innerHTML = html;
+          })
+          .catch(error => console.error('Error fetching RDVs:', error));
       }
     }
-  
+
     function setActiveButton(button) {
       // Remove active class from all buttons
       document.querySelectorAll('.button-container button').forEach(btn => {
@@ -120,9 +136,11 @@
       // Add active class to the clicked button
       button.classList.add('active-button');
     }
-  </script>
-  
-  
 
+    function logout() {
+      // Implement logout functionality here
+      console.log('Logout button clicked');
+    }
+  </script>
 </body>
 </html>

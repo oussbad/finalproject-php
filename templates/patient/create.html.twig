@@ -1,5 +1,8 @@
+{# templates/patient/create.html.twig #}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="{{ asset('favicon.ico') }}" />
@@ -12,23 +15,19 @@
   <!-- manifest.json provides metadata used when your web app is installed on a user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/ -->
   <link rel="manifest" href="{{ asset('manifest.json') }}" />
   <!-- Notice the use of %PUBLIC_URL% in the tags above. It will be replaced with the URL of the `public` folder during the build. Only files inside the `public` folder can be referenced from the HTML. Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will work correctly both with client-side routing and a non-root public URL. Learn how to configure a non-root public URL by running `npm run build`. -->
-  <title>React App</title>
+  <title>Add New Patient</title>
 </head>
+
 <body class="bg-gray-100 flex justify-center items-center h-screen">
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
   <div class="max-w-md w-full bg-white shadow-md rounded-lg px-8 py-6">
-    <h2 class="text-2xl font-semibold mb-6 text-center">Login</h2>
-    <img src="{{ asset('favicon.ico') }}" alt="Logo" class="w-24 mx-auto mb-6" />
-    {% if erreur %}
-      <div class="text-red-500 text-center mb-4">{{ erreur }}</div>
-    {% endif %}
-    <form action="{{ path('app_loginn') }}" method="post">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Add New Patient</h2>
+    <form action="{{ path('patient_store') }}" method="post">
       <input
         type="email"
         name="email"
         placeholder="Email"
-        value=""
         required
         class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
       />
@@ -36,45 +35,40 @@
         type="password"
         name="password"
         placeholder="Password"
-        value=""
         required
         class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
       />
-      <div class='flex flex-row justify-between '>
-        <div>
-          <label class="flex items-center mb-4">
-            <input
-              type="checkbox"
-              name="userType"
-              value="patient"
-              checked={userType == 'patient'}
-              onChange={handleUserTypeChange}
-              class="mr-2"
-            />
-            Patient
-          </label>
-        </div>
-        <div>
-          <label class="flex items-center mb-4">
-            <input
-              type="checkbox"
-              name="userType"
-              value="professional"
-              checked={userType == 'professional'}
-              onChange={handleUserTypeChange}
-              class="mr-2"
-            />
-            Professional
-          </label>
-        </div>
-      </div>
+      <input
+        type="text"
+        name="nom"
+        placeholder="Nom"
+        required
+        class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
+      />
+      <input
+        type="text"
+        name="prenom"
+        placeholder="Prenom"
+        required
+        class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
+      />
+      <input
+        type="text"
+        name="cin"
+        placeholder="CIN"
+        required
+        class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500"
+      />
+      <input
+        type="hidden"
+        name="roles"
+        value="[ROLE_USER]"
+      />
       <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
-        Login
+        Add Patient
       </button>
     </form>
-    <p class="mt-4 text-sm">
-      Don't have an account? <a href="{{path('app_register')}}" class="text-blue-500">Sign up now</a>
-    </p>
   </div>
 </body>
+
 </html>

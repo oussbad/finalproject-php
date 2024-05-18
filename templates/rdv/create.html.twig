@@ -1,18 +1,29 @@
 {# templates/rdv/create.html.twig #}
 
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Create RDV{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        {% block body %}
+            <h1 class="text-2xl font-bold mb-4">Create RDV</h1>
 
-{% block title %}Create RDV{% endblock %}
-
-{% block body %}
-    <h1>Create RDV</h1>
-
-    <form method="post" action="{{ path('rdv_store') }}">
-        <div class="mb-3">
-            <label for="date_rdv" class="form-label">Date</label>
-            <input type="date" class="form-control" id="date_rdv" name="date_rdv">
-        </div>
-        <!-- Add other form fields as needed -->
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-{% endblock %}
+            <form method="post" action="{{ path('rdv_store') }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="mb-4">
+                    <label for="date_rdv" class="block text-gray-700 text-sm font-bold mb-2">Date</label>
+                    <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date_rdv" name="date_rdv">
+                </div>
+                <!-- Add other form fields as needed -->
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+                </div>
+            </form>
+        {% endblock %}
+    </div>
+</body>
+</html>

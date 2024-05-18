@@ -7,69 +7,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient List</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .patient-card {
-      margin-bottom: 20px;
-    }
-  </style>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container mt-5">
-    <h1 class="mb-4">Patient List</h1>
-    <div class="row">
-      {% for patient in patients %}
-      <!-- Patient Cards -->
-      <div class="col-lg-4 col-md-6">
-        <div class="card patient-card">
-          <div class="card-body">
-            <h5 class="card-title">{{ patient.nom }} {{ patient.prenom }}</h5>
-            <p class="card-text">CIN: {{ patient.cin }}</p>
-            <!-- Link to edit patient -->
-            <a href="{{ path('patient_edit', {'id': patient.id}) }}" class="btn btn-primary btn-sm mr-2">Edit</a>
-            <!-- Link to delete patient -->
-            <a href="{{ path('patient_delete', {'id': patient.id}) }}" onclick="return confirm('Are you sure you want to delete this patient?')" class="btn btn-danger btn-sm">Delete</a>
-          </div>
-        </div>
-      </div>
-      <!-- End Patient Cards -->
-      {% endfor %}
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Patient List</h1>
+
+    <!-- Table of Patients -->
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+      <thead>
+        <tr class="bg-gray-100">
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">Name</th>
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">CIN</th>
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients %}
+        <tr class="hover:bg-gray-50">
+          <td class="py-2 px-4 border-b text-gray-700">{{ patient.nom }} {{ patient.prenom }}</td>
+          <td class="py-2 px-4 border-b text-gray-700">{{ patient.cin }}</td>
+          <td class="py-2 px-4 border-b text-gray-700">
+            <a href="{{ path('patient_edit', {'id': patient.id}) }}" class="text-blue-500 hover:text-blue-700">Edit</a>
+            <a href="{{ path('patient_delete', {'id': patient.id}) }}" onclick="return confirm('Are you sure you want to delete this patient?')" class="text-red-500 hover:text-red-700 ml-2">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- End Table of Patients -->
+
+    <!-- Button to Create New Patient -->
+    <div class="mt-4">
+      <a href="{{ path('patient_create') }}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Create New Patient</a>
     </div>
-    <!-- New Patient Form -->
-    <div class="mt-5">
-      <h2>Add New Patient</h2>
-      <form action="{{ path('patient_store') }}" method="POST">
-        <div class="form-group">
-          <label for="patientName">Patient Name</label>
-          <input type="text" class="form-control" id="patientName" name="nom" placeholder="Enter patient's last name">
-        </div>
-        <div class="form-group">
-          <label for="patientFirstName">Patient First Name</label>
-          <input type="text" class="form-control" id="patientFirstName" name="prenom" placeholder="Enter patient's first name">
-        </div>
-        <div class="form-group">
-          <label for="patientCIN">Patient CIN</label>
-          <input type="text" class="form-control" id="patientMail" name="cin" placeholder="Enter patient's CIN">
-        </div>
-        <div class="form-group">
-          <label for="patientMail">Patient Mail</label>
-          <input type="text" class="form-control" id="patientMail" name="email" placeholder="Enter patient's mail">
-        </div>
-        <div class="form-group">
-          <label for="patientPassword">Patient Password</label>
-          <input type="text" class="form-control" id="patientPassword" name="password" placeholder="Enter patient's password">
-        </div>
-        <button type="submit" class="btn btn-primary">Add Patient</button>
-      </form>
-    </div>
-    <!-- End New Patient Form -->
+    <!-- End Button to Create New Patient -->
   </div>
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
