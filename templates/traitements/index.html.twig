@@ -1,0 +1,48 @@
+{# templates/traitements/index.html.twig #}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traitement List</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Traitement List</h1>
+
+    <!-- Table of Traitements -->
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+      <thead>
+        <tr class="bg-gray-100">
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">Description</th>
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for traitement in traitements %}
+        <tr class="hover:bg-gray-50">
+          <td class="py-2 px-4 border-b text-gray-700">{{ traitement.description }}</td>
+          <td class="py-2 px-4 border-b text-gray-700">
+            <a href="{{ path('traitements_edit', {'id': traitement.id}) }}" class="text-blue-500 hover:text-blue-700">Edit</a>
+            <a href="{{ path('traitements_delete', {'id': traitement.id}) }}" onclick="return confirm('Are you sure you want to delete this traitement?')" class="text-red-500 hover:text-red-700 ml-2">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- End Table of Traitements -->
+
+    <!-- Button to Create New Traitement -->
+    <div class="mt-4">
+      <a href="{{ path('traitements_create') }}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Create New Traitement</a>
+    </div>
+    <!-- End Button to Create New Traitement -->
+  </div>
+</body>
+
+</html>

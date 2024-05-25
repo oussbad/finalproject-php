@@ -74,6 +74,7 @@ class RDVCRUD extends AbstractController
         }
 
         $rdv->setDateRdv(new \DateTime($request->request->get('date_rdv')));
+        $rdv->setPrescription($request->request->get('prescription_rdv'));
 
         // Update other properties similarly, depending on your form
 

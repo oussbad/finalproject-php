@@ -26,6 +26,9 @@ class RDV
     #[ORM\OneToOne(inversedBy: 'rdvsT', cascade: ['persist', 'remove'])]
     private ?Traitements $traitements = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Prescription = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class RDV
     public function setTraitements(?traitements $traitements): static
     {
         $this->traitements = $traitements;
+
+        return $this;
+    }
+
+    public function getPrescription(): ?string
+    {
+        return $this->Prescription;
+    }
+
+    public function setPrescription(?string $Prescription): static
+    {
+        $this->Prescription = $Prescription;
 
         return $this;
     }

@@ -1,18 +1,35 @@
-{# templates/rdv/edit.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
 
-{% extends 'base.html.twig' %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit RDV</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
 
-{% block title %}Edit RDV{% endblock %}
+<body class="bg-gray-100">
 
-{% block body %}
-    <h1>Edit RDV</h1>
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-3xl font-semibold mb-6">Edit RDV</h1>
 
-    <form method="post" action="{{ path('rdv_update', {'id': rdv.id}) }}">
-        <div class="mb-3">
-            <label for="date_rdv" class="form-label">Date</label>
-            <input type="date" class="form-control" id="date_rdv" name="date_rdv" value="{{ rdv.dateRdv|date('Y-m-d') }}">
+            <form method="post" action="{{ path('rdv_update', {'id': rdv.id}) }}" class="max-w-md">
+                <div class="mb-4">
+                    <label for="date_rdv" class="block text-gray-700">Date</label>
+                    <input type="date" class="form-input mt-1 block w-full" id="date_rdv" name="date_rdv" value="{{ rdv.dateRdv|date('Y-m-d') }}">
+                </div>
+                <div class="mb-4">
+                    <label for="prescription_rdv" class="block text-gray-700">Prescription</label>
+                    <input type="text" class="form-input mt-1 block w-full" id="prescription_rdv" name="prescription_rdv" value="{{ rdv.prescription }}">
+                </div>
+                <!-- Add other form fields as needed -->
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Update</button>
+            </form>
         </div>
-        <!-- Add other form fields as needed -->
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
-{% endblock %}
+    </div>
+
+</body>
+
+</html>
