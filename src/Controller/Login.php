@@ -22,7 +22,7 @@ class Login extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    #[Route('/login', name: 'app_login', methods: ['GET'])]
+    #[Route('/loginnnnn', name: 'app_loginnnnn', methods: ['GET'])]
     public function create(): Response
     {
         return $this->render('login/login.html.twig',[
@@ -85,13 +85,13 @@ class Login extends AbstractController
 
         
 }
-#[Route('/register', name: 'app_register', methods: ['GET'])]
+#[Route('/registerrrrrrr', name: 'app_registerrrr', methods: ['GET'])]
 public function createRegisterForm(): Response
 {
     return $this->render('login/ins.html.twig');
 }
 
-#[Route('/register', name: 'app_register_submit', methods: ['POST'])]
+#[Route('/registerrrr', name: 'app_register_submit', methods: ['POST'])]
 public function register(Request $request): Response
 {
     $user = new User();

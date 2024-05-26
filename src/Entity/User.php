@@ -136,4 +136,5 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         // Implement if you are using bcrypt or another algorithm that requires a salt
         return null;
     }
+    
 }

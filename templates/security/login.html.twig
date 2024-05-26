@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="{{ asset('favicon.ico') }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="{{ asset('logo192.png') }}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- manifest.json provides metadata used when your web app is installed on a user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/ -->
+  <link rel="manifest" href="{{ asset('manifest.json') }}" />
+  <!-- Notice the use of %PUBLIC_URL% in the tags above. It will be replaced with the URL of the `public` folder during the build. Only files inside the `public` folder can be referenced from the HTML. Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will work correctly both with client-side routing and a non-root public URL. Learn how to configure a non-root public URL by running `npm run build`. -->
+  <title>React App</title>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div class="max-w-md w-full bg-white shadow-md rounded-lg px-8 py-6">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Sign in</h2>
+    <form action="{{ path('app_login') }}" method="post" class="space-y-4">
+      {% if error %}
+        <div class="text-red-500 text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
+      {% if app.user %}
+        <div class="mb-3">
+          You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+      {% endif %}
+      <div class="flex flex-col space-y-1">
+        <label for="inputEmail" class="font-semibold">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-input" autocomplete="email" required autofocus>
+      </div>
+      <div class="flex flex-col space-y-1">
+        <label for="inputPassword" class="font-semibold">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-input" autocomplete="current-password" required>
+      </div>
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+      <button class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600" type="submit">Sign in</button>
+    </form>
+    <p class="mt-4 text-sm text-center">
+      Don't have an account? <a href="{{ path('app_register') }}" class="text-blue-500">Sign up now</a>
+    </p>
+  </div>
+</body>
+</html>

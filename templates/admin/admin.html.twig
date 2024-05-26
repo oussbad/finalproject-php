@@ -47,7 +47,8 @@
         <button onclick="showContent('rdv'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Rendez-Vous</button>
         <button onclick="showContent('rapports'); setActiveButton(this);" class="whitespace-nowrap bg-blue-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-blue-600">Rapports médicaux</button>
         <button onclick="logout();" class="whitespace-nowrap bg-red-500 text-white px-4 py-2 rounded-md md:px-6 md:py-3 hover:bg-red-600">
-          <i class="fas fa-sign-out-alt"></i> Logout
+          <i class="fas fa-sign-out-alt"></i> 
+          <a href="{{ path('app_logout') }}">Logout</a>
         </button>
       </div>
     </div>
@@ -57,6 +58,11 @@
     <!-- Content Divs for Patients, Rendez-Vous, Appointments, Prescription, and Rapports -->
     <div id="welcom" style="display: none;">
       <!-- Content welcom -->
+      {% if app.user %}
+        <div class="mb-3">
+          You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+      {% endif %}
       <!-- You can generate content dynamically here using JavaScript -->
       
     </div>

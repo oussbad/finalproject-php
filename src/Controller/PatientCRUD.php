@@ -91,6 +91,23 @@ class PatientCRUD extends AbstractController
 
         return $this->redirectToRoute('patient_index');
     }
+    #[Route('/patient/GenerateRapport/{id}', name: 'patient_update', methods: ['POST', 'PUT'])]
+    public function GenerateRapport(Request $request, int $id): Response
+    {
+        $patient = $this->entityManager->getRepository(Patient::class)->find($id);
+
+        if (!$patient) {
+            return $this->json(['message' => 'Patient not found'], 404);
+        }
+
+        $patient->setNom($request->request->get('nom'));
+        $patient->setPrenom($request->request->get('prenom'));
+        $patient->setCin($request->request->get('cin'));
+
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('patient_index');
+    }
 
     #[Route('/patient/delete/{id}', name: 'patient_delete', methods: ['GET'])]
     public function delete(int $id): Response

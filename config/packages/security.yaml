@@ -17,16 +17,25 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            entry_point: App\Security\AppAuthenticator
+
+            form_login:
+                # "app_login" is the name of the route created previously
+                login_path: app_login
+                check_path: app_login
+              
             
             logout:
                 path: app_logout
-            custom_authenticator: App\Security\AppAuthenticator
+           
+                
 
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
                 path: /
                 always_remember_me: true
+            custom_authenticator: App\Security\AppAuthenticator
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -39,7 +48,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        #- { path: ^/admin, roles: ROLE_PRO }
+        # - { path: ^/admin, roles: ROLE_PRO }
         
 
 when@test:
