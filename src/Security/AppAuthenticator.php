@@ -44,9 +44,17 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+        $roles = $token->getRoleNames();
+
+        // Check roles and redirect accordingly
+        if (in_array('ROLE_PRO', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        } elseif (in_array('ROLE_USER', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('PatientSpace'));
+        }
 
         // For example:
-       return new RedirectResponse($this->urlGenerator->generate('admin'));
+      
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

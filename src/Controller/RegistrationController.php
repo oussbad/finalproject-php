@@ -57,10 +57,20 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+            
+            if ($userType === 'patient') {
+
+                return $this->redirectToRoute('PatientSpace');
+
+            } elseif ($userType === 'professional') {
+
+                return $this->redirectToRoute('admin');
+
+            }
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('admin');
+            
         }
 
         return $this->render('registration/register.html.twig', [

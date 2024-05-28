@@ -1,0 +1,61 @@
+{# templates/profile/index.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Profile{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="bg-gray-100 text-gray-800">
+    {% block body %}
+    <div class="container mx-auto mt-10">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold mb-6 text-blue-500">Profile Information</h1>
+            
+            <div class="mt-1">
+                <strong>Welcome:</strong> {{ app.user.patient.nom }} {{ app.user.patient.prenom }}
+            </div>
+            
+            <div class="mt-4">
+                <strong>CIN:</strong> {{ app.user.patient.cin }}
+            </div>
+            
+            <div class="mt-4">
+                <strong>Email:</strong> {{ app.user.email }}
+            </div>
+            
+            <div class="mt-4">
+                <strong>Password:</strong> {{ app.user.password }}
+            </div>
+            
+            <div class="mt-6">
+                <h2 class="text-xl font-semibold text-blue-500">Appointments</h2>
+                <ul class="list-disc list-inside">
+                    {% for rdv in app.user.patient.rdvs %}
+                        <li>{{ rdv.dateRdv|date('Y-m-d') }} - {{ rdv.prescription }}</li>
+                    {% else %}
+                        <li>No appointments found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="mt-6">
+                <h2 class="text-xl font-semibold text-blue-500">Treatments</h2>
+                <ul class="list-disc list-inside">
+                    {% for traitement in app.user.patient.traitments %}
+                        <li>{{ traitement.name }} - {{ traitement.description }}</li>
+                    {% else %}
+                        <li>No treatments found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            
+        </div>
+    </div>
+    {% endblock %}
+    {% block javascripts %}{% endblock %}
+</body>
+</html>
