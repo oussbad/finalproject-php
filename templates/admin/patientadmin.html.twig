@@ -124,7 +124,7 @@
           })
           .catch(error => console.error('Error fetching patients:', error));
       } else if (contentId === 'rdv') {
-        fetch('/rdvs')
+        fetch('/rdv/list')
           .then(response => response.text())
           .then(html => {
             document.getElementById('rdv').innerHTML = html;
