@@ -80,7 +80,7 @@ class RDVCRUD extends AbstractController
 
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('rdv_index');
+        return $this->redirectToRoute('admin');
     }
 
     #[Route('/rdv/delete/{id}', name: 'rdv_delete', methods: ['GET'])]
@@ -95,6 +95,6 @@ class RDVCRUD extends AbstractController
         $this->entityManager->remove($rdv);
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('rdv_index');
+        return $this->redirectToRoute('admin');
     }
 }

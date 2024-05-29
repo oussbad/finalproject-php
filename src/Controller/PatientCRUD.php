@@ -10,15 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 
 class PatientCRUD extends AbstractController
 {
     private $entityManager;
+    private $userPasswordHasher;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager , UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->entityManager = $entityManager;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     #[Route('/patients', name: 'patient_index', methods: ['GET'])]
@@ -45,22 +49,27 @@ class PatientCRUD extends AbstractController
         $patient->setPrenom($request->request->get('prenom'));
         $patient->setCin($request->request->get('cin'));
 
-        $user=new User();
+        $user = new User();
         $user->setEmail($request->request->get('email'));
         $user->setRoles(['ROLE_USER']);
-        $user->setPassword($request->request->get('password'));
-        
+
+        $user->setPassword(
+            $this->userPasswordHasher->hashPassword(
+                $user,
+                $request->request->get('password')
+            )
+        );
+
         $user->setPatient($patient);
 
         // Persist the entities
         $this->entityManager->persist($patient);
         $this->entityManager->persist($user);
-        
+
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('patient_index');
+        return $this->redirectToRoute('admin');
     }
-
     #[Route('/patient/edit/{id}', name: 'patient_edit', methods: ['GET'])]
     public function edit(int $id): Response
     {
@@ -90,7 +99,7 @@ class PatientCRUD extends AbstractController
 
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('patient_index');
+        return $this->redirectToRoute('admin');
     }
 
      #[Route('/patient/GenerateRapport/{id}', name: 'patient_rapport', methods: ['POST', 'PUT','GET'])]
@@ -117,6 +126,6 @@ class PatientCRUD extends AbstractController
         $this->entityManager->remove($patient);
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('patient_index');
+        return $this->redirectToRoute('admin');
     }
 }
