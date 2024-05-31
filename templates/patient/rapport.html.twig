@@ -1,0 +1,47 @@
+{# templates/patient/index.html.twig #}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient List</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Patient List</h1>
+
+    <!-- Table of Patients -->
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+      <thead>
+        <tr class="bg-gray-100">
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">Name</th>
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">CIN</th>
+          <th scope="col" class="py-2 px-4 border-b font-medium text-gray-700">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients %}
+        <tr class="hover:bg-gray-50">
+          <td class="py-2 px-4 border-b text-gray-700">{{ patient.nom }} {{ patient.prenom }}</td>
+          <td class="py-2 px-4 border-b text-gray-700">{{ patient.cin }}</td>
+          <td class="py-2 px-4 border-b text-gray-700">
+            <a href="{{ path('patient_show', {'id': patient.id}) }}" class="text-blue-500 hover:text-blue-700">gnerate rapport</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- End Table of Patients -->
+
+    <!-- Button to Create New Patient -->
+    
+    <!-- End Button to Create New Patient -->
+  </div>
+</body>
+
+</html>

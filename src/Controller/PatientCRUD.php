@@ -128,4 +128,28 @@ class PatientCRUD extends AbstractController
 
         return $this->redirectToRoute('admin');
     }
+
+    #[Route('/patient/{id}', name: 'patient_show', methods: ['GET'])]
+    public function show(int $id): Response
+    {
+        $patient = $this->entityManager->getRepository(Patient::class)->find($id);
+
+        if (!$patient) {
+            throw $this->createNotFoundException('The patient does not exist');
+        }
+
+        return $this->render('patient/show.html.twig', [
+            'patient' => $patient,
+        ]);
+    }
+
+    #[Route('/rapports', name: 'patient_rapport', methods: ['GET'])]
+    public function rapport(): Response
+    {
+        $patients = $this->entityManager->getRepository(Patient::class)->findAll();
+
+        return $this->render('patient/rapport.html.twig', [
+            'patients' => $patients,
+        ]);
+    }
 }

@@ -78,7 +78,7 @@
       <p>Content for Rendez-Vous goes here...</p>
     </div>
 
-    <div id="traitements" style="display: none;">
+    <div id="rapports" style="display: none;">
       <!-- Content for Appointments -->
       <!-- You can generate content dynamically here using JavaScript -->
       <p>Content for Appointments goes here...</p>
@@ -122,11 +122,11 @@
             document.getElementById('rdv').innerHTML = html;
           })
           .catch(error => console.error('Error fetching RDVs:', error));
-      } else if (contentId === 'traitements') {
-        fetch('/traitements')
+      } else if (contentId === 'rapports') {
+        fetch('/rapports')
           .then(response => response.text())
           .then(html => {
-            document.getElementById('rdv').innerHTML = html;
+            document.getElementById('rapports').innerHTML = html;
           })
           .catch(error => console.error('Error fetching RDVs:', error));
       }

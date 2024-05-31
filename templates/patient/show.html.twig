@@ -1,0 +1,73 @@
+{# templates/patient/show.html.twig #}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport du Patient</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto mt-10">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-6 text-blue-600">Rapport du Patient</h1>
+            
+            <div class="mt-4">
+                <strong>Nom du patient:</strong> 
+                <span class="ml-2">{{ patient.nom }} {{ patient.prenom }}</span>
+            </div>
+            <div class="mt-4">
+                <strong>CIN du patient:</strong> 
+                <span class="ml-2">{{ patient.cin }}</span>
+            </div>
+            <div class="mt-4">
+                <strong>Email du patient:</strong> 
+                <span class="ml-2">{{ patient.user.email }}</span>
+            </div>
+            <h2 class="text-xl font-semibold text-blue-500">generate par</h2>
+            <div class="mt-4">
+                <strong>Nom du Docteur:</strong> 
+                <span class="ml-2">{{ app.user.profession.nom }}</span>
+            </div>
+            <div class="mt-4">
+                <strong>Prénom du Docteur:</strong> 
+                <span class="ml-2">{{ app.user.profession.prenom }}</span>
+            </div>
+            <div class="mt-4">
+                <strong>Email professionnel:</strong> 
+                <span class="ml-2">{{ app.user.email }}</span>
+            </div>
+            <div class="mt-4">
+                <strong>INPE:</strong> 
+                <span class="ml-2">{{ app.user.profession.NPE }}</span>
+            </div>
+            
+            <div class="mt-6">
+                <h2 class="text-xl font-semibold text-blue-500">Rendez-vous</h2>
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b-2 border-gray-200 text-left">Date</th>
+                            <th class="py-2 px-4 border-b-2 border-gray-200 text-left">Prescription</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rdv in patient.rdvs %}
+                            <tr>
+                                <td class="py-2 px-4 border-b border-gray-200">{{ rdv.dateRdv|date('Y-m-d') }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200">{{ rdv.prescription }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="2" class="py-2 px-4 border-b border-gray-200 text-center">Aucun rendez-vous trouvé.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            
+        </div>
+    </div>
+</body>
+</html>
